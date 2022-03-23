@@ -17,6 +17,9 @@ public class Order {
     @JoinColumn(name = "orderId")
     private List<OrderItem> items;
 
+    @Transient
+    private Delivery deliveryDetails;
+
     public Long getOrderId() {
         return orderId;
     }
@@ -39,5 +42,13 @@ public class Order {
 
     public void setItems(List<OrderItem> items) {
         this.items = items;
+    }
+
+    public Delivery getDeliveryDetails() {
+        return this.deliveryDetails;
+    }
+
+    public void setDeliveryDetails(Delivery deliveryDetails) {
+        this.deliveryDetails = deliveryDetails;
     }
 }
