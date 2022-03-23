@@ -1,7 +1,16 @@
 package com.valcon.dataacademy.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="CustomerOrders")
 public class Order {
 
+    @Id
+    @GeneratedValue
     private Long orderId;
 
     private String customerName;
