@@ -5,6 +5,7 @@ import com.valcon.dataacademy.service.IOrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -43,8 +44,10 @@ public class OrderController {
 
     }
 
-    @PostMapping(path="/orders", consumes="application/json", produces="application/json")
+    @PostMapping(path="/orders", consumes= MediaType.APPLICATION_JSON_VALUE, produces="application/json")
     public Order addOrder(@RequestBody Order order) {
+        LOGGER.debug(order.getCustomerName());
+
         return orderService.saveOrder(order);
     }
 }

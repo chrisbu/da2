@@ -4,6 +4,7 @@ import com.valcon.dataacademy.dao.IOrderRepository;
 import com.valcon.dataacademy.exception.InvalidOrderException;
 import com.valcon.dataacademy.model.Delivery;
 import com.valcon.dataacademy.model.Order;
+import com.valcon.dataacademy.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,11 @@ public class OrderService implements IOrderService {
         // validate
         if (order.getCustomerName() == null || order.getCustomerName().length() == 0) {
             throw new InvalidOrderException("Order does not have a customer name");
+        }
+
+        // join the orderItems to the order
+        for (OrderItem item : order.getItems()) {
+            item.setCustomerOrder(order);
         }
 
         Order result = this.orderRepo.save(order);

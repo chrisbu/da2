@@ -17,6 +17,10 @@ public class OrderItem {
 
     private String productName;
 
+    public OrderItem() {
+        // noargs constructor
+    }
+
     public Long getOrderItemId() {
         return orderItemId;
     }

@@ -1,5 +1,7 @@
 package com.valcon.dataacademy.model;
 
+import org.hibernate.engine.internal.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,12 +15,16 @@ public class Order {
 
     private String customerName;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name = "orderId")
     private List<OrderItem> items;
 
     @Transient
     private Delivery deliveryDetails;
+
+    public Order() {
+        // noargs constructor
+    }
 
     public Long getOrderId() {
         return orderId;

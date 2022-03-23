@@ -1,0 +1,1 @@
+curl -i -H "Content-Type: application/json" -X POST -d {\"customerName\":\"Sarah\",\"items\":[{\"productName\":\"Widget\"},{\"productName\":\"Pandle\"}]} http://localhost:8080/orders
