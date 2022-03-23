@@ -14,7 +14,6 @@ public class OrderService implements IOrderService {
     @Autowired
     IOrderRepository orderRepo;
 
-    @Autowired
     IShippingService shippingService;
 
     @Override
@@ -29,5 +28,10 @@ public class OrderService implements IOrderService {
         Delivery deliveryDetails = shippingService.getDeliveryDetails(order);
         order.setDeliveryDetails(deliveryDetails);
         return order;
+    }
+
+    @Autowired
+    public void setShippingService(IShippingService shippingService) {
+        this.shippingService = shippingService;
     }
 }

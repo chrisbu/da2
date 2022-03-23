@@ -25,10 +25,6 @@ public class OrderServiceTest {
     @MockBean
     IOrderRepository mockOrderRepo;
 
-    @Autowired
-    @MockBean
-    IShippingService mockShippingService;
-
     @Test
     void testOrderServiceGetOrderById() {
         // create an order that will be returned from our mocked out database call
@@ -42,9 +38,7 @@ public class OrderServiceTest {
         Mockito.when(mockOrderRepo.findById(orderId)).thenReturn(returnOrder);
 
         // Mock the shippingService response
-        Delivery deliveryDetails = new Delivery();
-        deliveryDetails.setDeliveryDate("99/99/99");
-        Mockito.when(mockShippingService.getDeliveryDetails(ArgumentMatchers.any())).thenReturn(deliveryDetails);
+        orderService.setShippingService(getDummyShippingService());
 
         // Do the call under test
         Order order = orderService.getOrderById(orderId);
@@ -52,7 +46,20 @@ public class OrderServiceTest {
         //Check the results
         assertEquals("Test customer", order.getCustomerName());
         assertNotNull(order.getDeliveryDetails());
-        assertEquals("99/99/99", order.getDeliveryDetails().getDeliveryDate());
+        assertEquals("88/88/88", order.getDeliveryDetails().getDeliveryDate());
 
+    }
+
+    private IShippingService getDummyShippingService() {
+        // anonymous interface
+        return new IShippingService() {
+            // our dummy implementation
+            @Override
+            public Delivery getDeliveryDetails(Order order) {
+                Delivery delivery = new Delivery();
+                delivery.setDeliveryDate("88/88/88");
+                return delivery;
+            }
+        };
     }
 }
