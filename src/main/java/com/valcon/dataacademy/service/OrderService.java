@@ -1,6 +1,7 @@
 package com.valcon.dataacademy.service;
 
 import com.valcon.dataacademy.dao.IOrderRepository;
+import com.valcon.dataacademy.exception.InvalidOrderException;
 import com.valcon.dataacademy.model.Delivery;
 import com.valcon.dataacademy.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,16 @@ public class OrderService implements IOrderService {
     @Autowired
     public void setShippingService(IShippingService shippingService) {
         this.shippingService = shippingService;
+    }
+
+    @Override
+    public Order saveOrder(Order order) {
+        // validate
+        if (order.getCustomerName() == null || order.getCustomerName().length() == 0) {
+            throw new InvalidOrderException("Order does not have a customer name");
+        }
+
+        Order result = this.orderRepo.save(order);
+        return result;
     }
 }

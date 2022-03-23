@@ -8,4 +8,6 @@ public interface IOrderService {
     List<Order> getOrderList();
 
     Order getOrderById(Long id);
+
+    Order saveOrder(Order order);
 }
