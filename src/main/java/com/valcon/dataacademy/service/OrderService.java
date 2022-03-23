@@ -17,4 +17,10 @@ public class OrderService implements IOrderService {
     public List<Order> getOrderList() {
         return orderRepo.findAll();
     }
+
+    @Override
+    public Order getOrderById(Long id) {
+        Order order = orderRepo.findById(id).get();
+        return order;
+    }
 }
