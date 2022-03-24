@@ -5,16 +5,24 @@ import com.valcon.dataacademy.exception.InvalidOrderException;
 import com.valcon.dataacademy.model.Delivery;
 import com.valcon.dataacademy.model.Order;
 import com.valcon.dataacademy.model.OrderItem;
+import com.valcon.dataacademy.security.ISecurityService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class OrderService implements IOrderService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
     @Autowired
     IOrderRepository orderRepo;
+
+    @Autowired
+    ISecurityService securityService;
 
     IShippingService shippingService;
 
@@ -25,6 +33,9 @@ public class OrderService implements IOrderService {
 
     @Override
     public Order getOrderById(Long id) {
+        String currentUser = securityService.getLoggedInUser().getUsername();
+        LOGGER.info("Order request {} by user {}", id, currentUser);
+
         Order order = orderRepo.findById(id).get();
 
         Delivery deliveryDetails = shippingService.getDeliveryDetails(order);
