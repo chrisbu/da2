@@ -12,3 +12,8 @@ insert into order_item (order_item_id, product_name, order_Id) values (4, 'Widge
 insert into order_item (order_item_id, product_name, order_Id) values (5, 'Widget', 3);
 insert into order_item (order_item_id, product_name, order_Id) values (6, 'Dongle', 3);
 insert into order_item (order_item_id, product_name, order_Id) values (7, 'Foobar', 3);
+
+
+insert into user (ID, PASSWORD, ROLE, USERNAME) values (1, 'adminpw', 'ADMIN', 'admin');
+insert into user (ID, PASSWORD, ROLE, USERNAME) values (2, 'userpw', 'USER', 'user1');
+insert into user (ID, PASSWORD, ROLE, USERNAME) values (3, 'userpw', 'USER', 'user2');

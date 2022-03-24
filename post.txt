@@ -1,1 +1,6 @@
+No Authentication:
 curl -i -H "Content-Type: application/json" -X POST -d {\"customerName\":\"Sarah\",\"items\":[{\"productName\":\"Widget\"},{\"productName\":\"Pandle\"}]} http://localhost:8080/orders
+
+
+With Authentication
+curl -i -H "Content-Type: application/json" -X POST -d {\"customerName\":\"Jane\",\"items\":[{\"productName\":\"Widget\"},{\"productName\":\"Pandle\"}]} http://user:userpw@localhost:8080/orders
