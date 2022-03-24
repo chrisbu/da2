@@ -9,7 +9,6 @@ import com.valcon.dataacademy.security.ISecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +37,10 @@ public class OrderService implements IOrderService {
 
         Order order = orderRepo.findById(id).get();
 
+        if (order.getCustomerName() != currentUser) {
+            throw new RuntimeException("Cannot get order for this user");
+        }
+
         Delivery deliveryDetails = shippingService.getDeliveryDetails(order);
         order.setDeliveryDetails(deliveryDetails);
         return order;
@@ -53,6 +56,11 @@ public class OrderService implements IOrderService {
         // validate
         if (order.getCustomerName() == null || order.getCustomerName().length() == 0) {
             throw new InvalidOrderException("Order does not have a customer name");
+        }
+
+        String currentUser = securityService.getLoggedInUser().getUsername();
+        if (order.getCustomerName() != currentUser) {
+            throw new InvalidOrderException("Can only create orders for yourself");
         }
 
         // join the orderItems to the order
